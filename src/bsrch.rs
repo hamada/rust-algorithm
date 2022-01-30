@@ -5,7 +5,10 @@ const RAND_MAX_F: f64 = libc::RAND_MAX as f64;
 fn bsrch(x: u8, a: &[u8; 20], mut left: u8, mut right: u8) -> i8 {
     while left < right {
         let mid = (left + right) / 2;
-        if a[mid as usize] < x {
+        let mid_v = a[mid as usize];
+        println!("mid: {}, mid_v: {}", mid, mid_v);
+
+        if mid_v < x {
             left = mid + 1;
         } else {
             right = mid;
@@ -37,12 +40,13 @@ fn main() {
     for i in &nums { println!("   {}", i); }
     println!("a[i]: ");
     for i in &nums { println!("     {}", a[*i as usize]); }
-    println!("何を探しますか? ");
+    println!("何を探しますか?\n");
     let x: u8 = 94; // TODO: 標準入力を参照する処理を実装する
+    println!("x: {}", x);
 
     let i = bsrch(x, &a, 0, N - 1);
     if i != NOT_FOUND {
-        println!("i = {}", i);
+        println!("i: {}", i);
     } else {
         println!("見つかりません");
     }
