@@ -2,6 +2,20 @@ const NOT_FOUND: i8 = -1;
 const N: u8 = 20;
 const RAND_MAX_F: f64 = libc::RAND_MAX as f64;
 
+fn bsrch(x: u8, a: &[u8; 20], mut left: u8, mut right: u8) -> i8 {
+    while left < right {
+        let mid = (left + right) / 2;
+        if a[mid as usize] < x {
+            left = mid + 1;
+        } else {
+            right = mid;
+        }
+    }
+    if a[left as usize] == x { return left as i8; }
+
+    return NOT_FOUND;
+}
+
 fn main() {
     let mut buffer = Vec::with_capacity(16);
     buffer.resize(16, 0u8);
@@ -24,9 +38,9 @@ fn main() {
     println!("a[i]: ");
     for i in &nums { println!("     {}", a[*i as usize]); }
     println!("何を探しますか? ");
-    // scanf("%d", &x); // TODO: 標準入力を参照する処理を実装する
+    let x: u8 = 94; // TODO: 標準入力を参照する処理を実装する
 
-    let i = NOT_FOUND; //bsrch(x, a, 0, N - 1); // TODO: 実装する
+    let i = bsrch(x, &a, 0, N - 1);
     if i != NOT_FOUND {
         println!("i = {}", i);
     } else {
